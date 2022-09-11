@@ -7,8 +7,8 @@ import zio._
 object TrafficService {
   val live: RLayer[Scope & ShortestPathService[Scope], TrafficService[Scope]] = ZLayer {
     for {
-      short <- ZIO.service[ShortestPathService[Scope]]
-    } yield new TrafficServiceImpl[Scope](short)
+      shortestService <- ZIO.service[ShortestPathService[Scope]]
+    } yield new TrafficServiceImpl[Scope](shortestService)
   }
 }
 class TrafficServiceImpl[R](s: ShortestPathService[R]) extends TrafficService[R] {
